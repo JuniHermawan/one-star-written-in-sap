@@ -16,6 +16,11 @@ ENTRY = (
     "I've been bleeding furniture adhesive for six months."
 )
 
+# Gate (RULES.txt): UTF-8 text, 1-279 characters, not only whitespace,
+# one line. Fail loudly instead of shipping an invalid entry.
+assert 1 <= len(ENTRY) <= 279, f"entry length {len(ENTRY)} outside 1-279"
+assert "\n" not in ENTRY and ENTRY.strip(), "entry must be one non-blank line"
+
 
 def main() -> None:
     out_dir = os.environ.get("OUTPUT_DIR", "/output")
